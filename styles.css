@@ -130,18 +130,26 @@ h2{margin:0}
 .track{position:absolute;inset:0;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .track.drag{transition:none}
 .slide{position:absolute;left:0;right:0;height:100%;background:var(--bg)}
-.vid{position:absolute;left:0;right:0;top:86px;bottom:129px;border-radius:8px;overflow:hidden;background:#000}
+.slide{container-type:size}
+/* Video window: scaled from the container WIDTH (so it always spans edge to edge, also on short Safari viewports),
+   showing the 8%..78% band of the recording (hides status bar + game controls). */
+.vid{position:absolute;left:0;right:0;top:86px;bottom:129px;   /* fallback without container units */
+  height:min(calc(100cqh - 86px - 60px), calc(100cqw * 2.1661 * .70));
+  border-radius:8px;overflow:hidden;background:#000;isolation:isolate;-webkit-transform:translateZ(0);transform:translateZ(0)}
+.media{position:absolute;left:0;top:0;width:100%;padding-top:216.61%;transform:translateY(-8%)}
+.media video,.media .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}  /* clips were compressed to 526x1080 (squashed): fill restores 1180:2556 */
+.media .poster{background:center/100% 100% no-repeat}
+/* fades are real elements (not pseudo-elements) on their own compositing layer: iOS Safari draws <video> above generated content */
+.fade{position:absolute;left:0;right:0;z-index:2;pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0)}
+.fade-t{top:0;height:70px;background:linear-gradient(to bottom,rgb(18,20,33),rgba(18,20,33,0))}
+.fade-b{bottom:0;height:130px;background:linear-gradient(to bottom,rgba(18,20,33,0),rgb(18,20,33) 92%)}
 /* Crop the recordings: hide the top 8% (iOS status bar) and bottom 22% (game bars, balance, app nav); spin buttons stay visible.
    The media box is 1/0.70 of the container tall and shifted up so only the 8%..78% band shows. */
-.vid video,.vid .poster{position:absolute;left:50%;top:-11.4%;height:142.9%;width:auto;aspect-ratio:1180/2556;transform:translateX(-50%);object-fit:fill}  /* compressed clips are 526x1080 (squashed): fill restores the true 1180:2556 phone ratio */
-.vid .poster{background:center/cover no-repeat}
-.pause-ind{position:absolute;top:50%;left:50%;width:72px;height:72px;margin:-36px;border-radius:50%;background:rgba(18,20,33,.6);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .15s}
+.pause-ind{z-index:3;position:absolute;top:50%;left:50%;width:72px;height:72px;margin:-36px;border-radius:50%;background:rgba(18,20,33,.6);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .15s}
 .pause-ind svg{width:30px;height:30px;fill:#fff}
 .slide.paused .pause-ind{opacity:1}
 
 /* top / bottom fades (header_blur_component) */
-.slide::before{content:"";position:absolute;left:0;right:0;top:0;height:147px;background:linear-gradient(var(--bg) 35%,transparent);z-index:1;pointer-events:none}
-.slide::after{content:"";position:absolute;left:0;right:0;bottom:0;height:185px;background:linear-gradient(transparent,var(--bg) 30%);z-index:1;pointer-events:none}
 
 .v-head{position:absolute;top:51px;left:0;right:0;height:46px;padding:5px 10px;display:flex;align-items:center;gap:10px;z-index:5}
 @media (max-width:599px){.v-head{top:14px}}

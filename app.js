@@ -127,8 +127,11 @@ function buildSlides() {
   track.innerHTML = CLIPS.map((c) => `
     <section class="slide" data-id="${c.id}">
       <div class="vid">
-        <div class="poster" style="background-image:url(${c.poster})"></div>
-        <video playsinline loop muted preload="none" poster="${c.poster}" data-src="${c.src}"></video>
+        <div class="media">
+          <div class="poster" style="background-image:url(${c.poster})"></div>
+          <video playsinline webkit-playsinline loop muted preload="none" poster="${c.poster}" data-src="${c.src}"></video>
+        </div>
+        <i class="fade fade-t"></i><i class="fade fade-b"></i>
         <div class="pause-ind">${PLAY_SVG}</div>
       </div>
 

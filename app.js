@@ -39,11 +39,11 @@ const POP = {
 };
 // Clip order, titles, subtitles and bet values are taken from the Clip 1–4 frames.
 const CLIPS = [
-  { id: "gates", name: "Gates of Inter Milan", sub: "Meet the Inter gods", src: "clips/clip3.mp4", poster: "posters/clip3.png",
+  { id: "gates", name: "Gates of Inter Milan", pl: "33", win: "€813.68", src: "clips/clip3.mp4", poster: "posters/clip3.png",
     avatar: A("d72035eb0aa9506147944551245df1557670cc85", "png"), bet: "€27.29" },
-  { id: "legacy", avatar: "assets/thumb-legacy.png", name: "Legacy of Dead", sub: "Meet the Inter gods", src: "clips/clip4.mp4", poster: "posters/clip4.png", bet: "€53.00" },
-  { id: "golden", avatar: "assets/thumb-golden.png", name: "Golden Retriever", sub: "Crazy win by this customer", src: "clips/clip2.mp4", poster: "posters/clip2.png", bet: "€97.29" },
-  { id: "starburst", avatar: "assets/thumb-starburst.png", name: "Betsson Starburst", sub: "Reach the stars!", src: "clips/clip1.mp4", poster: "posters/clip1.png", bet: "€289.20" },
+  { id: "legacy", avatar: "assets/thumb-legacy.png", name: "Legacy of Dead", pl: "58", win: "€1,240.50", src: "clips/clip4.mp4", poster: "posters/clip4.png", bet: "€53.00" },
+  { id: "golden", avatar: "assets/thumb-golden.png", name: "Golden Retriever", pl: "07", win: "€456.20", src: "clips/clip2.mp4", poster: "posters/clip2.png", bet: "€97.29" },
+  { id: "starburst", avatar: "assets/thumb-starburst.png", name: "Betsson Starburst", pl: "91", win: "€329.90", src: "clips/clip1.mp4", poster: "posters/clip1.png", bet: "€289.20" },
 ];
 const STAT = { rtp: "89%", vol: "Med", max: "5000x" };
 
@@ -146,7 +146,7 @@ function buildSlides() {
         <img src="${c.avatar || c.poster}" alt="" style="${c.avatar ? "" : "object-position:center 14%"}">
         <div class="cap-body">
           <div class="cap-line"><b>${c.name}</b></div>
-          <div class="cap-sub">${c.sub}</div>
+          <div class="cap-sub">Player ••${c.pl} won <b>${c.win}</b></div>
         </div>
         <button class="play-cta" data-act="play">Play now</button>
       </div>

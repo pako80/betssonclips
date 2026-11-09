@@ -182,6 +182,7 @@ h2{margin:0}
 .play-cta{margin-left:auto;align-self:center;flex:none;background:var(--accent);color:#fff;font-weight:700;font-size:15px;line-height:1.2;padding:13px 24px;border-radius:99px;white-space:nowrap;transition:transform .15s,filter .15s}
 .play-cta:active{transform:scale(.96);filter:brightness(.92)}
 .cap-sub{font-size:13px;line-height:1.45;color:#979797;margin-top:3px}
+.cap-sub b{font-weight:600;color:var(--accent)}
 
 /* latest wins: bubbles pop in at the bottom, drift up and ease to a stop while fading (TikTok-live style) */
 .wins{position:absolute;left:16px;bottom:92px;width:270px;height:0;z-index:3;pointer-events:none}

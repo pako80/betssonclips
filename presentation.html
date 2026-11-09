@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Betsson Clips · Presentation</title>
+<style>
+  :root{--bg:#0b0c14}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:radial-gradient(80% 70% at 50% 40%,#1b1e33,var(--bg) 70%);color:#fff;font-family:Inter,-apple-system,system-ui,sans-serif}
+  .stage{height:100%;display:flex;align-items:center;justify-content:center;gap:48px}
+  .scaler{transform-origin:center center}
+
+  /* iPhone-style device: 393x852 screen + bezel */
+  .device{position:relative;width:417px;height:876px;padding:12px;border-radius:64px;background:linear-gradient(145deg,#3a3d4d,#14151d 40%,#2a2c3a);
+    box-shadow:0 0 0 2px #0a0a10,0 40px 90px rgba(0,0,0,.65),inset 0 0 0 1.5px rgba(255,255,255,.12)}
+  .screen{position:relative;width:393px;height:852px;border-radius:52px;overflow:hidden;background:#000}
+  .screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#121421}
+  .island{position:absolute;top:11px;left:50%;width:122px;height:35px;margin-left:-61px;border-radius:20px;background:#000;z-index:5;pointer-events:none}
+  .homebar{position:absolute;bottom:8px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:rgba(255,255,255,.85);z-index:5;pointer-events:none}
+  /* hardware buttons */
+  .btn{position:absolute;width:4px;border-radius:2px;background:#2a2c3a}
+  .btn.l1{left:-3px;top:130px;height:30px}.btn.l2{left:-3px;top:190px;height:58px}.btn.l3{left:-3px;top:260px;height:58px}
+  .btn.r1{right:-3px;top:210px;height:92px}
+
+  .side{flex:none;width:260px}
+  .side h1{margin:0 0 6px;font-size:22px;line-height:1.25;font-weight:700}
+  .side .sub{margin:0 0 22px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.6)}
+  .side h2{margin:0 0 10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
+  .side ul{margin:0 0 24px;padding:0;list-style:none;display:grid;gap:9px;font-size:14px;line-height:1.4;color:rgba(255,255,255,.8)}
+  .side li{display:flex;gap:10px;align-items:baseline}
+  kbd{font:600 12px Inter,sans-serif;background:rgba(255,255,255,.12);border-radius:5px;padding:2px 7px;color:#fff;white-space:nowrap}
+  .side button{font:inherit;font-weight:600;font-size:14px;color:#121421;background:#ff6600;border:0;border-radius:99px;padding:11px 22px;cursor:pointer;transition:filter .15s,transform .15s}
+  .side button:hover{filter:brightness(1.08)}
+  .side button:active{transform:scale(.97)}
+  @media (max-width:900px){
+    .side{position:fixed;right:16px;bottom:14px;width:auto}
+    .side .copy{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="scaler" id="scaler">
+      <div class="device">
+        <i class="btn l1"></i><i class="btn l2"></i><i class="btn l3"></i><i class="btn r1"></i>
+        <div class="screen">
+          <iframe id="proto" src="index.html?embed" title="Clips prototype" allow="autoplay"></iframe>
+          <div class="island"></div>
+          <div class="homebar"></div>
+        </div>
+      </div>
+    </div>
+    <aside class="side">
+      <div class="copy">
+        <h1>Betsson Clips</h1>
+        <p class="sub">Casino lobby prototype: tap a clip to open the full-screen feed.</p>
+        <h2>How to use</h2>
+        <ul>
+          <li><kbd>Tap</kbd> a thumbnail in Clips to open</li>
+          <li><kbd>Swipe</kbd> or <kbd>↑</kbd> <kbd>↓</kbd> next / previous clip</li>
+        </ul>
+      </div>
+      <button id="reset">Reset demo</button>
+    </aside>
+  </div>
+
+
+<script>
+  // fit the device to the window height (never upscale past 100%)
+  const scaler = document.getElementById("scaler");
+  function fit() {
+    const s = Math.min(1, (innerHeight - 70) / 876, (innerWidth - 40) / 417);
+    scaler.style.transform = `scale(${s})`;
+    scaler.style.margin = `${-(876 * (1 - s)) / 2}px ${-(417 * (1 - s)) / 2}px`;
+  }
+  addEventListener("resize", fit); fit();
+
+  const frame = document.getElementById("proto");
+  frame.addEventListener("load", () => { try { frame.contentWindow.focus(); } catch {} });
+  // "Reset demo": clear saved favourites/votes in the prototype and reload it
+  document.getElementById("reset").onclick = () => {
+    try { frame.contentWindow.localStorage.clear(); } catch {}
+    frame.contentWindow.location.reload();
+  };
+</script>
+</body>
+</html>
